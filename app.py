@@ -1,5 +1,6 @@
 import threading
 import time
+import multiprocessing
 from datetime import datetime
 
 start_time = time.time() 
@@ -27,13 +28,22 @@ def sum_of_prime(i):
 l = [10000, 20000, 30000, 40000, 50000]
 
 threads = []
-for i in l:
-    t = threading.Thread(target=sum_of_prime, args=(i,))
-    threads.append(t)
-    t.start()
+# for i in l:
+#     t = threading.Thread(target=sum_of_prime, args=(i,))
+#     threads.append(t)
+#     t.start()
 
-for t in threads:
-    t.join()
+# for t in threads:
+#     t.join()
+
+if __name__ == '__main__':
+    for i in l:
+        t = multiprocessing.Process(target=sum_of_prime, args=(i,))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
 
 end_time = time.time() 
 elapsed_time = end_time - start_time 
